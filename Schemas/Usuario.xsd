@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://services.soaexpert.com.br/GEDSOA/Usuario"
+	xmlns:tns="http://services.soaexpert.com.br/GEDSOA/Usuario" xmlns:ac="http://services.soaexpert.com.br/AccessControl"
+	elementFormDefault="qualified">
+	<import namespace="http://services.soaexpert.com.br/AccessControl"
+		schemaLocation="./AccessControl.xsd" />
+		
+	<complexType name="Usuario">
+		<complexContent>
+			<extension base="ac:Sujeito">
+				<sequence>
+					<element name="login" type="string" minOccurs="1"
+						maxOccurs="1" />
+					<element name="password" type="tns:SecuredPassword"
+						maxOccurs="1" />
+					<element name="nome" type="string" minOccurs="1" maxOccurs="1"/>
+					<element name="email" type="string" minOccurs="1" maxOccurs="1"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="SecuredPassword">
+		<simpleContent>
+			<extension base="string">
+				<attribute name="hashFunction" use="required">
+					<simpleType>
+						<restriction base="string">
+							<enumeration value="MD5" />
+							<enumeration value="SHA-1" />
+						</restriction>
+					</simpleType>
+				</attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+</schema>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://services.soaexpert.com.br/AccessControl"
+	xmlns:tns="http://services.soaexpert.com.br/AccessControl"
+	elementFormDefault="qualified">
+
+	<annotation>
+		<documentation>
+			Modelo para sistema de controle acesso baseado em
+			papéis e atributos (vide NIST-RBAC e OASIS XACML).  
+		</documentation>
+	</annotation>
+
+	<complexType name="Recurso" abstract="true">
+		<annotation>
+			<documentation>Recurso cujo acesso será controlado.</documentation>
+		</annotation>
+		<sequence>
+			<element name="atributo" type="string" minOccurs="1"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="Papel">
+		<sequence>
+			<element name="id" type="long" />
+			<element name="nome" type="string" />
+			<element name="permissao" type="tns:Permissao" minOccurs="1"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="Permissao">
+		<sequence>
+			<element name="atributo" type="string" minOccurs="1"
+				maxOccurs="1" />
+			<element name="tipoAcesso" type="tns:TipoAcesso" minOccurs="1"
+				maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+
+	<complexType name="Sujeito" abstract="true">
+		<sequence>
+			<element name="papel" type="tns:Papel" minOccurs="1"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+
+	<simpleType name="TipoAcesso">
+		<restriction base="string">
+			<enumeration value="leitura" />
+			<enumeration value="inclusao" />
+			<enumeration value="alteracao" />
+			<enumeration value="exclusao" />
+		</restriction>
+	</simpleType>
+</schema>

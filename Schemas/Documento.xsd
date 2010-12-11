@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://services.soaexpert.com.br/GEDSOA/Documento"
+	xmlns:tns="http://services.soaexpert.com.br/GEDSOA/Documento"
+	xmlns:ac="http://services.soaexpert.com.br/AccessControl"
+	elementFormDefault="qualified">
+	<import namespace="http://services.soaexpert.com.br/AccessControl"
+		schemaLocation="./AccessControl.xsd" />
+
+	<element name="documento" type="tns:Documento"></element>
+
+	<complexType name="Documento">
+		<complexContent>
+			<extension base="ac:Recurso">
+				<sequence>
+					<element name="id" type="long" maxOccurs="1" />
+					<element name="nome" type="string" maxOccurs="1" />
+					<element name="descricao" type="string" maxOccurs="1" />
+					<element name="tipo" type="tns:MediaType" maxOccurs="1" />
+					<element name="versao" type="int" maxOccurs="1" />
+					<element name="binario" type="base64Binary" maxOccurs="1" />
+					<element name="tag" type="string" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	
+  
+
+	<simpleType name="MediaType">
+		<annotation>
+			<documentation>Suporta os Media Types definidos na RFC 2046, com
+				exceção dos tipos compostos multipart e message.                                                     
+			</documentation>
+		</annotation>
+		<restriction base="string">
+			<pattern value="(application|audio|image|text|video)/([-+.A-Za-z0-9])+" />
+		</restriction>
+	</simpleType>
+
+
+</schema>
